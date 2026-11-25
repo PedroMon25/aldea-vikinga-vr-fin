@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aldea Vikinga VR • Meta Quest 3</title>
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.1/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.1/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p id="loader-text">Cargando modelos 3D, texturas HD y las 8 regiones de la Aldea Vikinga VR...</p>
+    </div>
+
+    <!-- Efecto visual de daño y despertar desde el suelo -->
+    <div id="damage-flash"></div>
+    <div id="wakeup-curtain"></div>
+
+    <!-- Portada Web VR -->
+    <div id="cover-overlay">
+        <div class="cover-card">
+            <span class="badge-vr">EXPERIENCIA WEBXR • META QUEST 3</span>
+            <h1 class="scene-title">ALDEA VIKINGA: TIERRAS DEL NORTE VR</h1>
+            <p class="subtitle">Destruye 3 rocas rúnicas para invocar al Coloso de Magma o tala 5 árboles del bosque para despertar al Guardián Ancestral.</p>
+
+            <div class="cover-grid">
+                <div class="cover-box">
+                    <h2>Controles Meta Quest 3 y PC</h2>
+                    <ul class="instructions-list">
+                        <li><strong>Stick Izquierdo / WASD:</strong> Caminar (<code>Shift</code> o clic en stick para correr usando estamina).</li>
+                        <li><strong>Stick Derecho / Teclas A-D:</strong> Girar vista lateralmente.</li>
+                        <li><strong>Botón A o X / Espacio:</strong> Saltar (consume estamina).</li>
+                        <li><strong>Gatillo Derecho / Clic Izq:</strong> Golpe cuerpo a cuerpo (rango corto 2.8m).</li>
+                        <li><strong>Grip Derecho / Tecla E o Clic Der:</strong> Arrojar el hacha vikinga.</li>
+                        <li><strong>Gatillo Izquierdo:</strong> Arco azul de teletransporte.</li>
+                    </ul>
+                </div>
+
+                <div class="cover-box">
+                    <h2>Integrantes del Equipo</h2>
+                    <ul class="team-list">
+                        <li><strong>Pedro Carlos Montalbo Castro</strong><br>No. Control: <code>24200096</code></li>
+                        <li><strong>Octavio Armando Reyes Álvarez</strong><br>No. Control: <code>24200223</code></li>
+                        <li><strong>Pablo Horacio Velázquez Téllez</strong><br>No. Control: <code>24200102</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <button id="btn-start" type="button">EXPLORAR ALDEA VIKINGA (ACTIVAR AUDIO)</button>
+        </div>
+    </div>
+
+    <!-- Panel Superior Izquierdo: 3 Corazones + Barra de Estamina -->
+    <div id="player-status">
+        <div class="hearts-row" id="heartsContainer" aria-label="Salud del jugador">
+            <span class="heart active">❤️</span>
+            <span class="heart active">❤️</span>
+            <span class="heart active">❤️</span>
+        </div>
+        <div class="stamina-wrapper">
+            <span class="stamina-label">ESTAMINA</span>
+            <div class="stamina-bar-bg">
+                <div id="stamina-bar-fill"></div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- HUD Superior Derecho -->
+    <div id="hud">
+        <div class="hud-badge"><span>Zona:</span> <b id="zoneName">Plaza Central</b></div>
+        <div class="hud-badge"><span>Puntos:</span> <b id="scoreCount">0</b></div>
+        <div class="hud-badge"><span>Objetivos:</span> <b id="destroyedCount">0</b> / <b id="totalTargets">0</b></div>
+        <button id="btn-info" type="button" title="Ver portada e instrucciones">ℹ️ Info</button>
+    </div>
+
+    <!-- Barra de vida dinámica de Jefes (Coloso o Guardián del Bosque) -->
+    <div id="boss-hud" class="hidden">
+        <div class="boss-title" id="bossTitleText">🔥 COLOSO DE ROCA Y MAGMA: <span id="bossHpText">240 / 240</span> HP</div>
+        <div class="boss-bar-bg">
+            <div id="boss-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- Audio de fondo -->
+    <audio id="ambient-audio" src="assets/audio/ambiente.mp3" preload="auto" loop></audio>
+
+    <canvas id="scene"></canvas>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
